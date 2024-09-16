@@ -1,0 +1,32 @@
+gloo:
+  kubeGateway:
+    # Enable K8s Gateway integration
+    enabled: true
+  settings:
+    disableKubernetesDestinations: false
+  discovery:
+    enabled: true
+  gatewayProxies:
+    gatewayProxy:
+      gatewaySettings:
+        accessLoggingService:
+          accessLog:
+          - fileSink:
+              path: /dev/stdout
+              stringFormat: ""
+global:
+  extensions:
+    caching:
+      enabled: true
+    # Rate-Limit Configuration
+    # Seems you need to enable rate-limit to install the redis required by the caching service ....
+    rateLimit:
+      enabled: true
+      deployment:
+        logLevel: debug
+
+    # Ext-Auth Configuration
+    extAuth:
+      enabled: false
+      deployment:
+        logLevel: debug%

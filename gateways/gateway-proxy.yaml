@@ -1,0 +1,27 @@
+apiVersion: gateway.solo.io/v1
+kind: Gateway
+metadata:
+  labels:
+    app: gloo
+  name: gateway-proxy
+  namespace: gloo-system
+spec:
+  bindAddress: '::'
+  bindPort: 8080
+  httpGateway: {}
+  # httpGateway:
+  #   options:
+  #     caching:
+  #       cachingServiceRef:
+  #            name: caching-service
+  #            namespace: gloo-system
+  options:
+    accessLoggingService:
+      accessLog:
+      - fileSink:
+          path: /dev/stdout
+          stringFormat: ""
+  proxyNames:
+  - gateway-proxy
+  ssl: false
+  useProxyProto: false

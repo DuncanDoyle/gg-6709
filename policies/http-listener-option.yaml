@@ -1,0 +1,17 @@
+apiVersion: gateway.solo.io/v1
+kind: HttpListenerOption
+metadata:
+  name: caching
+  namespace: ingress-gw
+spec:
+  targetRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: gw
+    namespace: ingress-gw
+    sectionName: http
+  options:
+    caching:
+      cachingServiceRef:
+        name: caching-service
+        namespace: gloo-system

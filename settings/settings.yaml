@@ -1,0 +1,62 @@
+apiVersion: gloo.solo.io/v1
+kind: Settings
+metadata:
+  labels:
+    app: gloo
+    app.kubernetes.io/managed-by: Helm
+    gloo: settings
+  name: default
+  namespace: gloo-system
+spec:
+  # cachingServer:
+  #   cachingServiceRef:
+  #     name: caching-service
+  #     namespace: gloo-system
+  consoleOptions:
+    apiExplorerEnabled: true
+    readOnly: false
+  discovery:
+    fdsMode: WHITELIST
+  discoveryNamespace: gloo-system
+  gateway:
+    enableGatewayController: true
+    isolateVirtualHostsBySslConfig: false
+    readGatewaysFromAllNamespaces: false
+    validation:
+      allowWarnings: true
+      alwaysAccept: true
+      disableTransformationValidation: false
+      proxyValidationServerAddr: gloo:9988
+      serverEnabled: true
+      validationServerGrpcMaxSizeBytes: 104857600
+      warnRouteShortCircuiting: false
+  gloo:
+    disableKubernetesDestinations: false
+    disableProxyGarbageCollection: false
+    enableRestEds: false
+    invalidConfigPolicy:
+      invalidRouteResponseBody: Gloo Gateway has invalid configuration. Administrators
+        should run `glooctl check` to find and fix config errors.
+      invalidRouteResponseCode: 404
+      replaceInvalidRoutes: false
+    istioOptions:
+      appendXForwardedHost: true
+      enableAutoMtls: false
+      enableIntegration: false
+    proxyDebugBindAddr: 0.0.0.0:9966
+    regexMaxProgramSize: 1024
+    restXdsBindAddr: 0.0.0.0:9976
+    xdsBindAddr: 0.0.0.0:9977
+  graphqlOptions:
+    schemaChangeValidationOptions:
+      processingRules: []
+      rejectBreakingChanges: false
+  kubernetesArtifactSource: {}
+  kubernetesConfigSource: {}
+  kubernetesSecretSource: {}
+  ratelimitServer:
+    rateLimitBeforeAuth: false
+    ratelimitServerRef:
+      name: rate-limit
+      namespace: gloo-system
+  refreshRate: 60s
